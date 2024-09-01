@@ -1,0 +1,20 @@
+# plugin data
+name: GameLobby
+description: Implements a Lobby System for games using the GameManager api.
+
+# build data
+main: de.c4vxl.gamelobby.GameLobby
+version: 1.0-RV-B1                  # 1.0, release, b1
+api-version: 1.14                   # plugin supports 1.14+
+
+# author
+authors: [ c4vxl ]
+website: https://gma.c4vxl.de/
+
+softdepend:
+  - GameManager
+
+libraries:
+  - org.jetbrains.kotlin:kotlin-stdlib:2.0.0
+  - dev.jorel:commandapi-bukkit-kotlin:9.5.3
+  - dev.jorel:commandapi-bukkit-shade:9.5.3
