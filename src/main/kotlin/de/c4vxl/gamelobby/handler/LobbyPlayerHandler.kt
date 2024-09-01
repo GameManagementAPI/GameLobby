@@ -54,22 +54,6 @@ class LobbyPlayerHandler(plugin: Plugin) : Listener {
     }
 
     @EventHandler
-    fun onBlockBreak(event: BlockBreakEvent) {
-        if (!event.player.isInLobby) return
-        if (event.player.gameMode == GameMode.CREATIVE) return
-
-        event.isCancelled = true
-    }
-
-    @EventHandler
-    fun onBlockPlace(event: BlockPlaceEvent) {
-        if (!event.player.isInLobby) return
-        if (event.player.gameMode == GameMode.CREATIVE) return
-
-        event.isCancelled = true
-    }
-
-    @EventHandler
     fun onFallOff(event: PlayerMoveEvent) {
         if (!event.player.isInLobby) return
         if (Lobby.spawnLocation.world.minHeight + 3 < event.player.location.blockY) return
@@ -91,6 +75,7 @@ class LobbyPlayerHandler(plugin: Plugin) : Listener {
     @EventHandler
     fun onInteract(event: PlayerInteractEvent) {
         val player: Player = event.player
+        if (player.gameMode == GameMode.CREATIVE) return
         if (!player.isInLobby) return
 
         event.isCancelled = true

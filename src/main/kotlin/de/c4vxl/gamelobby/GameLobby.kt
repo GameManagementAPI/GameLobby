@@ -11,7 +11,10 @@ import dev.jorel.commandapi.CommandAPIBukkitConfig
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.configuration.file.FileConfiguration
+import org.bukkit.configuration.file.YamlConfiguration
+import org.bukkit.configuration.file.YamlConstructor
 import org.bukkit.plugin.java.JavaPlugin
+import java.io.File
 
 class GameLobby : JavaPlugin() {
     companion object {
@@ -27,15 +30,14 @@ class GameLobby : JavaPlugin() {
     override fun onLoad() {
         instance = this
 
-        // init config
-        saveResource("config.yml", false)
-        reloadConfig()
-        GameLobby.config = this.config
-
         CommandAPI.onLoad(CommandAPIBukkitConfig(this).silentLogs(true))
     }
 
     override fun onEnable() {
+        // init config
+        saveResource("config.yml", false)
+        GameLobby.config = YamlConfiguration.loadConfiguration(File(dataFolder, "config.yml"))
+        
         // register commands
         CommandAPI.onEnable()
         SetSpawnCommand
