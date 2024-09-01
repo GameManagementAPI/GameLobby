@@ -89,8 +89,17 @@ class LobbyPlayerHandler(plugin: Plugin) : Listener {
     }
 
     @EventHandler
+    fun onInteract(event: PlayerInteractEvent) {
+        val player: Player = event.player
+        if (!player.isInLobby) return
+
+        event.isCancelled = true
+    }
+
+    @EventHandler
     fun onItemInteract(event: PlayerInteractEvent) {
         val player: Player = event.player
+        if (!player.isInLobby) return
         val item: ItemStack = event.item ?: return
         val action: String = item.itemMeta?.persistentDataContainer?.get(NamespacedKey(GameLobby.instance, "lobbyitem.action"), PersistentDataType.STRING) ?: return
 

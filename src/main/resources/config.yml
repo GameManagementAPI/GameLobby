@@ -1,0 +1,6 @@
+signs:
+  line0: "§b==============="
+  line1: "§7Click to join"
+  line2: "§a§l$GAMESIZE"
+  line3: "§b==============="
+  type: OAK_SIGN

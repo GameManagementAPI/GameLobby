@@ -19,10 +19,8 @@ object Lobby {
     fun Player.sendToLobby() = this.asGamePlayer.sendToLobby()
     val Player.isInLobby get() = this.asGamePlayer.isInLobby
 
-    val lobbyConfig: FileConfiguration = GameLobby.instance.config.also { GameLobby.instance.reloadConfig() }
-
     var spawnLocation: Location = Bukkit.getWorlds().first().spawnLocation
-        get() = (lobbyConfig.getLocation("spawn") ?: Bukkit.getWorlds().first().spawnLocation).apply {
+        get() = (GameLobby.config.getLocation("spawn") ?: Bukkit.getWorlds().first().spawnLocation).apply {
             // apply game rules to world
             world.setGameRule(GameRule.DO_TRADER_SPAWNING, false)
             world.setGameRule(GameRule.FALL_DAMAGE, false)
@@ -37,8 +35,8 @@ object Lobby {
             world.setGameRule(GameRule.DO_FIRE_TICK, false)
         }
         set(value) {
-            lobbyConfig.set("spawn", value)
-            lobbyConfig.save(File(GameLobby.instance.dataFolder, "config.yml"))
+            GameLobby.config.set("spawn", value)
+            GameLobby.config.save(File(GameLobby.instance.dataFolder, "config.yml"))
             field = value
         }
     val players: MutableList<Player> get() = spawnLocation.world.players.filter { it.isInLobby }.toMutableList()

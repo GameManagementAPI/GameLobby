@@ -2,6 +2,7 @@ package de.c4vxl.gamelobby.commands
 
 import de.c4vxl.gamelobby.GameLobby
 import de.c4vxl.gamelobby.system.Lobby
+import de.c4vxl.gamelobby.utils.ComponentCollection
 import dev.jorel.commandapi.arguments.LocationType
 import dev.jorel.commandapi.kotlindsl.commandTree
 import dev.jorel.commandapi.kotlindsl.locationArgument
@@ -12,6 +13,8 @@ import org.bukkit.Location
 
 object SetSpawnCommand {
     init {
+        val prefix = ComponentCollection.PREFIX.component
+
         commandTree("setspawn") {
             withFullDescription("Allows you to set the spawn location of the current lobby")
             withPermission("c4vxl.gamelobby.perms.cmd.setspawn")
@@ -24,7 +27,7 @@ object SetSpawnCommand {
 
                     Lobby.spawnLocation = location
 
-                    player.sendMessage(GameLobby.prefix.append(Component.text("Spawn has been set successfully!").color(NamedTextColor.GREEN)))
+                    player.sendMessage(prefix.append(Component.text("Spawn has been set successfully!").color(NamedTextColor.GREEN)))
                 }
             }
         }
