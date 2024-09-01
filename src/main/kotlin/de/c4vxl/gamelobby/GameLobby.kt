@@ -1,5 +1,9 @@
 package de.c4vxl.gamelobby
 
+import de.c4vxl.gamelobby.commands.SetSpawnCommand
+import de.c4vxl.gamelobby.handler.GameConnectionHandler
+import de.c4vxl.gamelobby.handler.LobbyPlayerHandler
+import de.c4vxl.gamelobby.handler.PlayerConnectionHandler
 import dev.jorel.commandapi.CommandAPI
 import dev.jorel.commandapi.CommandAPIBukkitConfig
 import net.kyori.adventure.text.Component
@@ -23,8 +27,12 @@ class GameLobby : JavaPlugin() {
     override fun onEnable() {
         // register commands
         CommandAPI.onEnable()
+        SetSpawnCommand
 
         // register listeners
+        GameConnectionHandler(this)
+        LobbyPlayerHandler(this)
+        PlayerConnectionHandler(this)
 
         logger.info("[+] $name has been enabled! \n  -> using version ${pluginMeta.version}")
     }
