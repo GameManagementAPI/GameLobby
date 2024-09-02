@@ -48,6 +48,7 @@ object Lobby {
         player.level = 0
         player.inventory.clear()
         player.activePotionEffects.clear()
+        player.clearActivePotionEffects()
         player.fireTicks = 0
         player.resetMaxHealth()
         player.health = player.maxHealth

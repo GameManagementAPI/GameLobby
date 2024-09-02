@@ -22,8 +22,8 @@ class ItemBuilder(
     var interactonHandler: ((PlayerInteractEvent) -> Unit)? = null,
     var invClickHandler: ((InventoryClickEvent) -> Unit)? = null) {
     companion object : Listener {
-        private val interactionHandlers: MutableMap<Int, (PlayerInteractEvent) -> Unit> = mutableMapOf()
-        private val inventoryClickHandlers: MutableMap<Int, (InventoryClickEvent) -> Unit> = mutableMapOf()
+        val interactionHandlers: MutableMap<Int, (PlayerInteractEvent) -> Unit> = mutableMapOf()
+        val inventoryClickHandlers: MutableMap<Int, (InventoryClickEvent) -> Unit> = mutableMapOf()
 
         fun register(plugin: Plugin) {
             Bukkit.getPluginManager().registerEvents(this, plugin)

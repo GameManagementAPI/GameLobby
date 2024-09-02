@@ -125,7 +125,7 @@ class QueueHandler(plugin: Plugin) : Listener {
                     ).build()
                 }.toMutableList()
 
-                player.openInventory(ScrollableInventory(items).page(0))
+                player.openInventory(ScrollableInventory(items, "§6§lSelect a team").page(0))
             }
         ).build())
 
@@ -165,7 +165,7 @@ class QueueHandler(plugin: Plugin) : Listener {
                     ).build()
                 }.toMutableList()
 
-                player.openInventory(ScrollableInventory(items).page(0))
+                player.openInventory(ScrollableInventory(items, "§6§lVote for a map").page(0))
             }
         ).build())
 

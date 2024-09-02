@@ -50,6 +50,7 @@ class GameLobby : JavaPlugin() {
         SignHandler(this)
         QueueHandler(this)
         GameFinishHandler(this)
+        SpectatorHandler(this)
 
         logger.info("[+] $name has been enabled! \n  -> using version ${pluginMeta.version}")
     }

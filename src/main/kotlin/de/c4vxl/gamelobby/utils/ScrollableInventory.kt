@@ -1,6 +1,7 @@
 package de.c4vxl.gamelobby.utils
 
 import net.kyori.adventure.text.Component
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.event.inventory.InventoryClickEvent
@@ -9,6 +10,7 @@ import org.bukkit.inventory.ItemStack
 
 class ScrollableInventory(
     private val items: MutableList<ItemStack>,
+    private val title: String,
     private val invSize: Int = 9 * 1,
     private val itemsPerPage: Int = invSize-2
 ) {
@@ -16,7 +18,7 @@ class ScrollableInventory(
         get() = (items.size + itemsPerPage - 1) / itemsPerPage
 
     fun page(page: Int): Inventory {
-        val inventory = Bukkit.createInventory(null, invSize, Component.text("Select Team"))
+        val inventory = Bukkit.createInventory(null, invSize, LegacyComponentSerializer.legacySection().deserialize(title))
 
         // Add navigation arrows
         if (page > 0) {
