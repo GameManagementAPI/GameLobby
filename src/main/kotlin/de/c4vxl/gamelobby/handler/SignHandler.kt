@@ -1,9 +1,11 @@
 package de.c4vxl.gamelobby.handler
 
 import de.c4vxl.gamelobby.GameLobby
+import de.c4vxl.gamelobby.utils.ComponentCollection
 import de.c4vxl.gamemanager.gamemanagementapi.GameManagementAPI
 import de.c4vxl.gamemanager.gamemanagementapi.game.Game
 import de.c4vxl.gamemanager.gamemanagementapi.player.GMAPlayer.Companion.asGamePlayer
+import net.kyori.adventure.text.Component
 import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.NamespacedKey
@@ -45,6 +47,16 @@ class SignHandler(plugin: Plugin) : Listener {
 
         // get game with size
         val game: Game = GameManagementAPI.getGame(teamAmount, teamSize)
+
+        event.isCancelled = true
+
+        // return if no maps exist
+        if (game.worldManager.availableMaps.isEmpty()) {
+            event.player.sendMessage(ComponentCollection.PREFIX.component
+                .append(ComponentCollection.SORRY.component)
+                .append(Component.text("But it seems like there exist no Maps for this game!")))
+            return
+        }
 
         // join game
         game.join(event.player.asGamePlayer)

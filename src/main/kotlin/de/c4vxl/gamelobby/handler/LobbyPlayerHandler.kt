@@ -91,6 +91,10 @@ class LobbyPlayerHandler(plugin: Plugin) : Listener {
         when(action) {
             "tp_to_spawn" -> {
                 if (!event.action.isRightClick) return
+                if (player.getCooldown(item.type) > 0) return
+
+                player.setCooldown(item.type, 20 * 1)
+
                 player.sendToLobby()
             }
             "boost" -> {
