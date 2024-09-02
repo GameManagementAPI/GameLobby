@@ -7,7 +7,6 @@ import de.c4vxl.gamemanager.gamemanagementapi.player.GMAPlayer.Companion.asGameP
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.*
-import org.bukkit.configuration.file.FileConfiguration
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType

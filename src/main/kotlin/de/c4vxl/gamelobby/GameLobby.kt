@@ -2,17 +2,14 @@ package de.c4vxl.gamelobby
 
 import de.c4vxl.gamelobby.commands.CreateSignCommand
 import de.c4vxl.gamelobby.commands.SetSpawnCommand
-import de.c4vxl.gamelobby.handler.GameConnectionHandler
-import de.c4vxl.gamelobby.handler.LobbyPlayerHandler
-import de.c4vxl.gamelobby.handler.PlayerConnectionHandler
-import de.c4vxl.gamelobby.handler.SignHandler
+import de.c4vxl.gamelobby.handler.*
+import de.c4vxl.gamelobby.utils.ItemBuilder
 import dev.jorel.commandapi.CommandAPI
 import dev.jorel.commandapi.CommandAPIBukkitConfig
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.configuration.file.FileConfiguration
 import org.bukkit.configuration.file.YamlConfiguration
-import org.bukkit.configuration.file.YamlConstructor
 import org.bukkit.plugin.java.JavaPlugin
 import java.io.File
 
@@ -37,7 +34,10 @@ class GameLobby : JavaPlugin() {
         // init config
         saveResource("config.yml", false)
         GameLobby.config = YamlConfiguration.loadConfiguration(File(dataFolder, "config.yml"))
-        
+
+        // register ItemBuilder
+        ItemBuilder.register(this)
+
         // register commands
         CommandAPI.onEnable()
         SetSpawnCommand
@@ -48,6 +48,7 @@ class GameLobby : JavaPlugin() {
         LobbyPlayerHandler(this)
         PlayerConnectionHandler(this)
         SignHandler(this)
+        QueueHandler(this)
 
         logger.info("[+] $name has been enabled! \n  -> using version ${pluginMeta.version}")
     }
