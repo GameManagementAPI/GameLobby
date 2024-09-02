@@ -13,6 +13,7 @@ import de.c4vxl.gamemanager.gamemanagementapi.world.WorldManager
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.configuration.file.YamlConfiguration
@@ -95,7 +96,7 @@ class QueueHandler(plugin: Plugin) : Listener {
                     ItemBuilder(if (team.players.isEmpty()) Material.GREEN_STAINED_GLASS_PANE
                                 else if (!team.isFull) Material.ORANGE_STAINED_GLASS_PANE
                                 else Material.RED_STAINED_GLASS_PANE,
-                        Component.text("#${team.id+1}"),
+                        LegacyComponentSerializer.legacySection().deserialize(team.name),
                         lore = mutableListOf(Component.text("Players: ").decorate(TextDecoration.BOLD)).apply {
                             if (team.players.isNotEmpty()) this.addAll(team.players.map { Component.text("- ${it.bukkitPlayer.name}").color(NamedTextColor.WHITE) })
                             else this.add(Component.text("None").color(NamedTextColor.WHITE))
@@ -117,7 +118,7 @@ class QueueHandler(plugin: Plugin) : Listener {
                                 // send
                                 player.sendMessage(ComponentCollection.PREFIX.component.append(
                                     Component.text("Successfully selected team ").color(NamedTextColor.GREEN)
-                                ).append(Component.text("#${team.id+1}")))
+                                ).append(LegacyComponentSerializer.legacySection().deserialize(team.name)))
                                 player.closeInventory()
                             }
                         }

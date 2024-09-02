@@ -21,7 +21,7 @@ class GameFinishHandler(plugin: Plugin) : Listener {
     fun onGameFinish(event: GameFinishEvent) {
         val world: World = event.game.worldManager.world ?: return
         val component = Component.text("Team ")
-            .append(LegacyComponentSerializer.legacySection().deserialize(event.game.worldManager.mapConfig.getTeamName(event.winnerTeam.id)))
+            .append(LegacyComponentSerializer.legacySection().deserialize(event.winnerTeam.name))
             .append(Component.text(" WON").color(NamedTextColor.GREEN))
             .append(Component.text(" the game!"))
 
