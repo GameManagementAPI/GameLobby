@@ -29,7 +29,6 @@ object Lobby {
             world.setGameRule(GameRule.KEEP_INVENTORY, true)
             world.setGameRule(GameRule.MOB_GRIEFING, false)
             world.setGameRule(GameRule.DO_MOB_SPAWNING, false)
-            world.setGameRule(GameRule.DO_VINES_SPREAD, false)
             world.setGameRule(GameRule.DROWNING_DAMAGE, false)
             world.setGameRule(GameRule.DO_FIRE_TICK, false)
         }
@@ -47,8 +46,7 @@ object Lobby {
         player.totalExperience = 0
         player.level = 0
         player.inventory.clear()
-        player.activePotionEffects.clear()
-        player.clearActivePotionEffects()
+        player.activePotionEffects.forEach { player.removePotionEffect(it.type) }
         player.fireTicks = 0
         player.resetMaxHealth()
         player.health = player.maxHealth
