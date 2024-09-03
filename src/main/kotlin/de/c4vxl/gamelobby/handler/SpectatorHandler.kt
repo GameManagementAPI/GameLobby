@@ -1,5 +1,6 @@
 package de.c4vxl.gamelobby.handler
 
+import com.destroystokyo.paper.event.player.PlayerPickupExperienceEvent
 import de.c4vxl.gamelobby.utils.ComponentCollection
 import de.c4vxl.gamelobby.utils.ItemBuilder
 import de.c4vxl.gamelobby.utils.ScrollableInventory
@@ -19,6 +20,7 @@ import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.entity.EntityDamageEvent
 import org.bukkit.event.inventory.InventoryClickEvent
+import org.bukkit.event.player.PlayerAttemptPickupItemEvent
 import org.bukkit.event.player.PlayerDropItemEvent
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.event.player.PlayerRespawnEvent
@@ -41,6 +43,15 @@ class SpectatorHandler(plugin: Plugin): Listener {
     @EventHandler
     fun onGameStop(event: GameStopEvent) {
         Bukkit.getScoreboardManager().mainScoreboard.getTeam("gma_spec_${event.game.id.asString}")?.unregister()
+    }
+
+    @EventHandler
+    fun onItemPickup(event: PlayerAttemptPickupItemEvent) {
+        val player = event.player
+
+        if (!player.asGamePlayer.isSpectating) return
+
+        event.isCancelled = true
     }
 
     @EventHandler
