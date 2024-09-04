@@ -40,33 +40,31 @@ object Lobby {
     val players: MutableList<Player> get() = spawnLocation.world.players.filter { it.isInLobby }.toMutableList()
 
     private fun sendPlayer(player: Player) {
-        if (!player.asGamePlayer.isInGame) {
-            // reset player
-            player.isFlying = false
-            player.exp = 0F
-            player.totalExperience = 0
-            player.level = 0
-            player.inventory.clear()
-            player.activePotionEffects.forEach { player.removePotionEffect(it.type) }
-            player.fireTicks = 0
-            player.resetMaxHealth()
-            player.health = player.maxHealth
-            player.gameMode = GameMode.SURVIVAL
+        // reset player
+        player.isFlying = false
+        player.exp = 0F
+        player.totalExperience = 0
+        player.level = 0
+        player.inventory.clear()
+        player.activePotionEffects.forEach { player.removePotionEffect(it.type) }
+        player.fireTicks = 0
+        player.resetMaxHealth()
+        player.health = player.maxHealth
+        player.gameMode = GameMode.SURVIVAL
 
-            // add inventory items
-            player.inventory.setItem(1, ItemStack(Material.ENDER_PEARL).apply {
-                this.editMeta {
-                    it.displayName(Component.text("Teleport to spawn").color(NamedTextColor.GOLD).append(ComponentCollection.RIGHT_CLICK.component))
-                    it.persistentDataContainer.set(NamespacedKey(GameLobby.instance, "lobbyitem.action"), PersistentDataType.STRING, "tp_to_spawn")
-                }
-            })
-            player.inventory.setItem(7, ItemStack(Material.FEATHER).apply {
-                this.editMeta {
-                    it.displayName(Component.text("Boost").color(NamedTextColor.AQUA).append(ComponentCollection.RIGHT_CLICK.component))
-                    it.persistentDataContainer.set(NamespacedKey(GameLobby.instance, "lobbyitem.action"), PersistentDataType.STRING, "boost")
-                }
-            })
-        }
+        // add inventory items
+        player.inventory.setItem(1, ItemStack(Material.ENDER_PEARL).apply {
+            this.editMeta {
+                it.displayName(Component.text("Teleport to spawn").color(NamedTextColor.GOLD).append(ComponentCollection.RIGHT_CLICK.component))
+                it.persistentDataContainer.set(NamespacedKey(GameLobby.instance, "lobbyitem.action"), PersistentDataType.STRING, "tp_to_spawn")
+            }
+        })
+        player.inventory.setItem(7, ItemStack(Material.FEATHER).apply {
+            this.editMeta {
+                it.displayName(Component.text("Boost").color(NamedTextColor.AQUA).append(ComponentCollection.RIGHT_CLICK.component))
+                it.persistentDataContainer.set(NamespacedKey(GameLobby.instance, "lobbyitem.action"), PersistentDataType.STRING, "boost")
+            }
+        })
 
         // teleport to spawn
         player.teleport(spawnLocation)
