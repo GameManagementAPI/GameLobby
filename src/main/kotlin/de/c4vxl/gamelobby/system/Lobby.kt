@@ -40,17 +40,19 @@ object Lobby {
     val players: MutableList<Player> get() = spawnLocation.world.players.filter { it.isInLobby }.toMutableList()
 
     private fun sendPlayer(player: Player) {
-        // reset player
-        player.isFlying = false
-        player.exp = 0F
-        player.totalExperience = 0
-        player.level = 0
-        player.inventory.clear()
-        player.activePotionEffects.forEach { player.removePotionEffect(it.type) }
-        player.fireTicks = 0
-        player.resetMaxHealth()
-        player.health = player.maxHealth
-        player.gameMode = GameMode.SURVIVAL
+        if (!player.asGamePlayer.isInGame) {
+            // reset player
+            player.isFlying = false
+            player.exp = 0F
+            player.totalExperience = 0
+            player.level = 0
+            player.inventory.clear()
+            player.activePotionEffects.forEach { player.removePotionEffect(it.type) }
+            player.fireTicks = 0
+            player.resetMaxHealth()
+            player.health = player.maxHealth
+            player.gameMode = GameMode.SURVIVAL
+        }
 
         // teleport to spawn
         player.teleport(spawnLocation)
