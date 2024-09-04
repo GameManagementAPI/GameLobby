@@ -98,8 +98,8 @@ class QueueHandler(plugin: Plugin) : Listener {
                                 else Material.RED_STAINED_GLASS_PANE,
                         LegacyComponentSerializer.legacySection().deserialize(team.name),
                         lore = mutableListOf(Component.text("Players: ").decorate(TextDecoration.BOLD)).apply {
-                            if (team.players.isNotEmpty()) this.addAll(team.players.map { Component.text("- ${it.bukkitPlayer.name}").color(NamedTextColor.WHITE) })
-                            else this.add(Component.text("None").color(NamedTextColor.WHITE))
+                            this.addAll(team.players.map { Component.text("- ${it.bukkitPlayer.name}").color(NamedTextColor.WHITE) })
+                            for (i in 0..(team.maxSize - this.size)) this.add(Component.text("- ").color(NamedTextColor.WHITE))
                         },
                         invClickHandler = { event: InventoryClickEvent ->
                             val player: Player = event.whoClicked as? Player ?: return@ItemBuilder

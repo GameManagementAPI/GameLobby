@@ -76,9 +76,9 @@ class LobbyPlayerHandler(plugin: Plugin) : Listener {
         if (player.gameMode == GameMode.CREATIVE) return
         if (!player.isInLobby) return
 
-        val item = event.item ?: return
-
         event.isCancelled = true
+
+        val item = event.item ?: return
         when(item.itemMeta?.persistentDataContainer?.get(NamespacedKey(GameLobby.instance, "lobbyitem.action"), PersistentDataType.STRING) ?: return) {
             "tp_to_spawn" -> {
                 if (!event.action.isRightClick) return
