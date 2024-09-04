@@ -52,24 +52,24 @@ object Lobby {
             player.resetMaxHealth()
             player.health = player.maxHealth
             player.gameMode = GameMode.SURVIVAL
+
+            // add inventory items
+            player.inventory.setItem(1, ItemStack(Material.ENDER_PEARL).apply {
+                this.editMeta {
+                    it.displayName(Component.text("Teleport to spawn").color(NamedTextColor.GOLD).append(ComponentCollection.RIGHT_CLICK.component))
+                    it.persistentDataContainer.set(NamespacedKey(GameLobby.instance, "lobbyitem.action"), PersistentDataType.STRING, "tp_to_spawn")
+                }
+            })
+            player.inventory.setItem(7, ItemStack(Material.FEATHER).apply {
+                this.editMeta {
+                    it.displayName(Component.text("Boost").color(NamedTextColor.AQUA).append(ComponentCollection.RIGHT_CLICK.component))
+                    it.persistentDataContainer.set(NamespacedKey(GameLobby.instance, "lobbyitem.action"), PersistentDataType.STRING, "boost")
+                }
+            })
         }
 
         // teleport to spawn
         player.teleport(spawnLocation)
-
-        // add inventory items
-        player.inventory.setItem(1, ItemStack(Material.ENDER_PEARL).apply {
-            this.editMeta {
-                it.displayName(Component.text("Teleport to spawn").color(NamedTextColor.GOLD).append(ComponentCollection.RIGHT_CLICK.component))
-                it.persistentDataContainer.set(NamespacedKey(GameLobby.instance, "lobbyitem.action"), PersistentDataType.STRING, "tp_to_spawn")
-            }
-        })
-        player.inventory.setItem(7, ItemStack(Material.FEATHER).apply {
-            this.editMeta {
-                it.displayName(Component.text("Boost").color(NamedTextColor.AQUA).append(ComponentCollection.RIGHT_CLICK.component))
-                it.persistentDataContainer.set(NamespacedKey(GameLobby.instance, "lobbyitem.action"), PersistentDataType.STRING, "boost")
-            }
-        })
     }
 
     fun broadcast(message: Component) {
