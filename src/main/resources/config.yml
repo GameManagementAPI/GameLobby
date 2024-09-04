@@ -4,3 +4,7 @@ signs:
   line2: "§a§l$GAMESIZE"
   line3: "§b==============="
   type: OAK_SIGN
+
+booster:
+  strength: 1.6
+  y_offset: 0.2

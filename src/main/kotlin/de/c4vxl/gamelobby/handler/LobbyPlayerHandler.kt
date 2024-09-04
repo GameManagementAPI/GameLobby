@@ -107,7 +107,8 @@ class LobbyPlayerHandler(plugin: Plugin) : Listener {
 
                 player.setCooldown(item.type, 20 * 4)
 
-                player.velocity = player.eyeLocation.direction.add(Vector(0.0, 0.5, 0.0)).multiply(2.1)
+                player.velocity = player.eyeLocation.direction.add(Vector(0.0, GameLobby.config.getDouble("booster.y_offset"), 0.0))
+                    .multiply(GameLobby.config.getDouble("booster.strength"))
             }
             else -> return
         }
