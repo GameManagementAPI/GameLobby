@@ -1,6 +1,5 @@
 package de.c4vxl.gamelobby.handler
 
-import com.destroystokyo.paper.event.player.PlayerPickupExperienceEvent
 import de.c4vxl.gamelobby.utils.ComponentCollection
 import de.c4vxl.gamelobby.utils.ItemBuilder
 import de.c4vxl.gamelobby.utils.ScrollableInventory

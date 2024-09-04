@@ -76,17 +76,10 @@ class LobbyPlayerHandler(plugin: Plugin) : Listener {
         if (player.gameMode == GameMode.CREATIVE) return
         if (!player.isInLobby) return
 
+        val item = event.item ?: return
+
         event.isCancelled = true
-    }
-
-    @EventHandler
-    fun onItemInteract(event: PlayerInteractEvent) {
-        val player: Player = event.player
-        if (!player.isInLobby) return
-        val item: ItemStack = event.item ?: return
-        val action: String = item.itemMeta?.persistentDataContainer?.get(NamespacedKey(GameLobby.instance, "lobbyitem.action"), PersistentDataType.STRING) ?: return
-
-        when(action) {
+        when(item.itemMeta?.persistentDataContainer?.get(NamespacedKey(GameLobby.instance, "lobbyitem.action"), PersistentDataType.STRING) ?: return) {
             "tp_to_spawn" -> {
                 if (!event.action.isRightClick) return
                 if (player.getCooldown(item.type) > 0) return
@@ -110,7 +103,5 @@ class LobbyPlayerHandler(plugin: Plugin) : Listener {
             }
             else -> return
         }
-
-        event.isCancelled = true
     }
 }
