@@ -56,7 +56,7 @@ class LobbyPlayerHandler(plugin: Plugin) : Listener {
         if (!event.player.isInLobby) return
         if (Lobby.spawnLocation.world.minHeight + 3 < event.player.location.blockY) return
 
-        event.player.sendToLobby()
+        event.player.teleport(Lobby.spawnLocation)
     }
 
     @EventHandler
