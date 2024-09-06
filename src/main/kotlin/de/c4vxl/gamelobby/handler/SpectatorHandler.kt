@@ -70,6 +70,7 @@ class SpectatorHandler(plugin: Plugin): Listener {
         player.inventory.setItem(1, ItemBuilder(
             Material.COMPASS,
             name = Component.text("Teleporter").color(NamedTextColor.GREEN).append(ComponentCollection.RIGHT_CLICK.component),
+            eventKey = player.uniqueId.toString(),
             invClickHandler = { it.isCancelled = true },
             interactonHandler = {
                 it.isCancelled = true
@@ -77,6 +78,7 @@ class SpectatorHandler(plugin: Plugin): Listener {
 
                 player.openInventory(ScrollableInventory(event.game.alivePlayers.map { gplayer ->
                     val ib = ItemBuilder(
+                        eventKey = player.uniqueId.toString(),
                         material = Material.PLAYER_HEAD,
                         name = Component.text(gplayer.bukkitPlayer.name),
                         lore = mutableListOf(Component.text("Team:"), Component.text(gplayer.team?.name ?: "None").color(NamedTextColor.WHITE)),
@@ -97,8 +99,6 @@ class SpectatorHandler(plugin: Plugin): Listener {
                         val meta = this.itemMeta as? SkullMeta ?: return@apply
                         meta.playerProfile = Bukkit.createProfile(gplayer.bukkitPlayer.uniqueId).apply { setTextures(null) }
                         this.setItemMeta(meta)
-
-                        ItemBuilder.inventoryClickHandlers[this.hashCode()] = ib.invClickHandler!!
                     }
                 }.toMutableList(), "§6§lTeleporter").page(0))
             }).build())

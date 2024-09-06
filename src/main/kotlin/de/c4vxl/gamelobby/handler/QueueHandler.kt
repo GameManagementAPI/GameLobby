@@ -88,6 +88,7 @@ class QueueHandler(plugin: Plugin) : Listener {
         val player: Player = event.player.bukkitPlayer
 
         player.inventory.setItem(1, ItemBuilder(Material.WHITE_BANNER, Component.text("Select team").append(ComponentCollection.RIGHT_CLICK.component),
+            eventKey = player.uniqueId.toString(),
             interactonHandler = { event: PlayerInteractEvent ->
                 event.isCancelled = true
                 val player: Player = event.player
@@ -131,6 +132,7 @@ class QueueHandler(plugin: Plugin) : Listener {
         ).build())
 
         player.inventory.setItem(4, ItemBuilder(Material.MAP, Component.text("Vote for map").append(ComponentCollection.RIGHT_CLICK.component),
+            eventKey = player.uniqueId.toString(),
             interactonHandler = { event: PlayerInteractEvent ->
                 event.isCancelled = true
                 
@@ -173,6 +175,7 @@ class QueueHandler(plugin: Plugin) : Listener {
         ).build())
 
         player.inventory.setItem(7, ItemBuilder(Material.OAK_DOOR, Component.text("Quit").color(NamedTextColor.RED).append(ComponentCollection.RIGHT_CLICK.component),
+            eventKey = player.uniqueId.toString(),
             interactonHandler = { event: PlayerInteractEvent ->
                 event.isCancelled = true
 
