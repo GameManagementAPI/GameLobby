@@ -7,7 +7,7 @@ import de.c4vxl.gamelobby.utils.ItemBuilder
 import dev.jorel.commandapi.CommandAPI
 import dev.jorel.commandapi.CommandAPIBukkitConfig
 import net.kyori.adventure.text.Component
-import net.kyori.adventure.text.format.NamedTextColor
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
 import org.bukkit.configuration.file.FileConfiguration
 import org.bukkit.configuration.file.YamlConfiguration
 import org.bukkit.plugin.java.JavaPlugin
@@ -15,9 +15,7 @@ import java.io.File
 
 class GameLobby : JavaPlugin() {
     companion object {
-        val prefix: Component = Component.text("[").color(NamedTextColor.GRAY)
-            .append(Component.text("Lobby").color(NamedTextColor.GREEN))
-            .append(Component.text("] ").color(NamedTextColor.GRAY))
+        lateinit var prefix: Component
 
         lateinit var instance: JavaPlugin
 
@@ -34,6 +32,9 @@ class GameLobby : JavaPlugin() {
         // init config
         saveResource("config.yml", false)
         GameLobby.config = YamlConfiguration.loadConfiguration(File(dataFolder, "config.yml"))
+
+        // init prefix from config
+        prefix = LegacyComponentSerializer.legacySection().deserialize(GameLobby.config.getString("prefix") ?: "§r§7[§r§aLobby§r§7]§r ")
 
         // register ItemBuilder
         ItemBuilder.register(this)

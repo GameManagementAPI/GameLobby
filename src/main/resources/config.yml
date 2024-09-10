@@ -8,3 +8,5 @@ signs:
 booster:
   strength: 1.6
   y_offset: 0.2
+
+prefix: "§r§7[§r§aLobby§r§7]§r "
