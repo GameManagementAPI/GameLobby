@@ -36,7 +36,7 @@ class SpectatorHandler(plugin: Plugin): Listener {
     @EventHandler
     fun onSpecQuit(event: GameSpectateStopEvent) {
         Bukkit.getScoreboardManager().mainScoreboard.getTeam("gma_spec_${event.game.id.asString}")?.removePlayer(event.player.bukkitPlayer)
-        event.player.bukkitPlayer.clearActivePotionEffects()
+        event.player.bukkitPlayer.activePotionEffects.forEach { event.player.bukkitPlayer.removePotionEffect(it.type) }
     }
 
     @EventHandler
