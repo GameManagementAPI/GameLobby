@@ -71,7 +71,8 @@ class QueueHandler(plugin: Plugin) : Listener {
         if (!game.isQueuing) return
 
         // handle vote
-        game.worldManager.forcemap = getMaxVotes(game)
+        if (game.worldManager.forcemap == null)
+            game.worldManager.forcemap = getMaxVotes(game)
     }
 
     @EventHandler
