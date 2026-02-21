@@ -16,7 +16,10 @@ object Lobby {
      */
     var spawn: Location
         get() = Main.config.getLocation("game.spawn") ?: Bukkit.getWorlds().first().spawnLocation
-        set(value) = Main.config.set("game.spawn", value)
+        set(value) {
+            Main.config.set("game.spawn", value)
+            Main.instance.saveConfig()
+        }
 
     /**
      * Sends a player to the lobby
