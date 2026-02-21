@@ -1,3 +1,8 @@
 config:
   prefix: "<gray>[</gray><green>Lobby</green><gray>]</gray>"
   send-welcome-message: true
+
+  queue:
+    team-selection-item: "WHITE_BANNER"
+    map-voting-item: "MAP"
+    leave-item: "OAK_DOOR"

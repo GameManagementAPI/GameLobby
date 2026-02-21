@@ -8,6 +8,9 @@ import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 
+/**
+ * Handles players connecting to games
+ */
 class GameConnectionHandler : Listener {
     init {
         Bukkit.getPluginManager().registerEvents(this, Main.instance)
@@ -21,7 +24,9 @@ class GameConnectionHandler : Listener {
 
     @EventHandler
     fun onGameQuit(event: GamePlayerQuitEvent) {
-        // Teleport to spawn
-        Lobby.send(event.player.bukkitPlayer)
+        Bukkit.getScheduler().runTaskLater(Main.instance, Runnable {
+            // Teleport to spawn
+            Lobby.send(event.player.bukkitPlayer)
+        }, 10)
     }
 }

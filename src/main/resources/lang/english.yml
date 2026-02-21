@@ -1,2 +1,25 @@
 "lobby.join.welcome": "${prefix} <gray>Welcome back</gray> $0<gray>!</gray>"
 "command.setspawn.success": "${prefix} <green>Successfully set spawn position!</green>"
+
+"right-click": "<gray>| <b>Right click</b></gray>"
+
+"scrollable.arrow.back": "<b>Previous Page</b>"
+"scrollable.arrow.next": "<b>Next Page</b>"
+
+"queue.item.team.name": "Select a team ${right-click}"
+"queue.item.vote.name": "Vote for a map ${right-click}"
+"queue.item.leave.name": "<red>Leave queue</red> ${right-click}"
+"queue.inventory.team.title": "<gold>Select a team</gold>"
+"queue.inventory.team.item.lore.l1": "<gold><b>Players:</b></gold>"
+
+
+"interface.team.title": "<gold>Select a team</gold>"
+"interface.team.item.lore.l1": "<gold><b>Players:</b></gold>"
+"interface.team.msg.full": "${prefix} <red>This team is already full!</red>"
+"interface.team.msg.success": "${prefix} <green>Joined team</green> '$0'"
+
+"interface.maps.title": "<gold>Select a map</gold>"
+"interface.maps.item.lore.l1": "<gray>Builder(s): </gray>"
+"interface.maps.item.lore.l2": "<white>$0</white> <gray>Vote(s)</gray>"
+"interface.maps.msg.already": "${prefix} <red>You can only vote once per game!</red>"
+"interface.maps.msg.success": "${prefix} <green>You voted for</green> $0"
