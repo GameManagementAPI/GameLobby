@@ -1,0 +1,2 @@
+"lobby.join.welcome": "${prefix} <gray>Welcome back</gray> $0<gray>!</gray>"
+"command.setspawn.success": "${prefix} <green>Successfully set spawn position!</green>"

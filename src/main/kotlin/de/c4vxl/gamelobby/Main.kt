@@ -1,9 +1,12 @@
 package de.c4vxl.gamelobby
 
+import de.c4vxl.gamelobby.commands.SetSpawnCommand
+import de.c4vxl.gamelobby.handler.ConnectionHandler
 import de.c4vxl.gamemanager.language.Language
 import de.c4vxl.gamemanager.utils.ResourceUtils
 import dev.jorel.commandapi.CommandAPI
 import dev.jorel.commandapi.CommandAPIPaperConfig
+import org.bukkit.configuration.file.FileConfiguration
 import org.bukkit.plugin.java.JavaPlugin
 
 /**
@@ -12,10 +15,12 @@ import org.bukkit.plugin.java.JavaPlugin
 class Main : JavaPlugin() {
     companion object {
         lateinit var instance: Main
+        lateinit var config: FileConfiguration
     }
 
     override fun onLoad() {
         instance = this
+        Main.config = this.config
 
         // CommandAPI
         CommandAPI.onLoad(
@@ -29,15 +34,32 @@ class Main : JavaPlugin() {
         // CommandAPI
         CommandAPI.onEnable()
 
+        // Load config
+        saveResource("config.yml", false)
+        reloadConfig()
+
         // Register language extensions
         ResourceUtils.readResource("langs", Main::class.java).split("\n")
             .forEach { langName ->
+                // Read language file
+                var translations = ResourceUtils.readResource("lang/$langName.yml", Main::class.java)
+
+                // Add prefix to translations
+                translations += "\n\"prefix\": \"${config.getString("config.prefix")}\""
+
+                // Register extension
                 Language.provideLanguageExtension(
                     "gamelobby",
                     langName,
-                    ResourceUtils.readResource("lang/$langName.yml", Main::class.java)
+                    translations
                 )
             }
+
+        // Register commands
+        SetSpawnCommand
+
+        // Register handlers
+        ConnectionHandler()
 
         // Logging
         logger.info("[+] $name has been enabled!")

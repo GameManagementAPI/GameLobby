@@ -1,0 +1,3 @@
+config:
+  prefix: "<gray>[</gray><green>Lobby</green><gray>]</gray>"
+  send-welcome-message: true
