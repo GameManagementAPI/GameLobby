@@ -2,6 +2,11 @@ config:
   prefix: "<gray>[</gray><green>Lobby</green><gray>]</gray>"
   send-welcome-message: true
 
+  lobby:
+    boost-cooldown: 5
+    boost-strength: 2.2
+    tp-cooldown: 3
+
   queue:
     team-selection-item: "WHITE_BANNER"
     map-voting-item: "MAP"

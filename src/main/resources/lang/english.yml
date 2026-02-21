@@ -27,3 +27,6 @@
 "end.won.title": "<green>Your team has won the game!</green>"
 "end.winner.title": "$0 <green>has won the game!</green>"
 "end.lost.title": "<red>Your team has lost the game!</red>"
+
+"lobby.item.spawn.name": "Back to spawn ${right-click}"
+"lobby.item.boost.name": "Boost ${right-click}"
