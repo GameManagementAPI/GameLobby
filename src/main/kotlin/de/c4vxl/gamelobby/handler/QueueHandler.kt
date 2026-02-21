@@ -7,6 +7,7 @@ import de.c4vxl.gamelobby.utils.Item
 import de.c4vxl.gamemanager.gma.event.game.GameStartEvent
 import de.c4vxl.gamemanager.gma.event.game.GameStopEvent
 import de.c4vxl.gamemanager.gma.event.player.GamePlayerJoinedEvent
+import de.c4vxl.gamemanager.gma.event.player.GamePlayerQuitEvent
 import de.c4vxl.gamemanager.gma.player.GMAPlayer.Companion.gma
 import de.c4vxl.gamemanager.utils.ItemBuilder
 import org.bukkit.Bukkit
@@ -37,6 +38,18 @@ class QueueHandler : Listener {
     @EventHandler
     fun onStop(event: GameStopEvent) {
         MapVote.votes.remove(event.game)
+    }
+
+    @EventHandler
+    fun onGameQuit(event: GamePlayerQuitEvent) {
+        val game = event.game
+        if (!game.isQueuing) return
+
+        // Remove vote
+        MapVote.votes.getOrPut(game) { mutableMapOf() }
+            .forEach {
+                it.value.remove(event.player.bukkitPlayer)
+            }
     }
 
     @EventHandler
