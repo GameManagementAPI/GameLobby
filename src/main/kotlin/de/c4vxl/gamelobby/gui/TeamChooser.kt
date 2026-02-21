@@ -1,4 +1,4 @@
-package de.c4vxl.gamelobby.`interface`
+package de.c4vxl.gamelobby.gui
 
 import de.c4vxl.gamelobby.utils.Item
 import de.c4vxl.gamelobby.utils.ScrollableInventory
@@ -13,7 +13,6 @@ import net.kyori.adventure.text.format.TextDecoration
 import net.kyori.adventure.text.minimessage.MiniMessage
 import org.bukkit.Material
 import org.bukkit.Sound
-import org.bukkit.SoundCategory
 import org.bukkit.entity.Player
 
 /**

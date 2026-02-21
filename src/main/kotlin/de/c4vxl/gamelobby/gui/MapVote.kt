@@ -1,4 +1,4 @@
-package de.c4vxl.gamelobby.`interface`
+package de.c4vxl.gamelobby.gui
 
 import de.c4vxl.gamelobby.utils.Item
 import de.c4vxl.gamelobby.utils.ScrollableInventory

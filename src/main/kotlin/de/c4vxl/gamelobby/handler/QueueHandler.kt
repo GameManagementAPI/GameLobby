@@ -1,8 +1,8 @@
 package de.c4vxl.gamelobby.handler
 
 import de.c4vxl.gamelobby.Main
-import de.c4vxl.gamelobby.`interface`.MapVote
-import de.c4vxl.gamelobby.`interface`.TeamChooser
+import de.c4vxl.gamelobby.gui.MapVote
+import de.c4vxl.gamelobby.gui.TeamChooser
 import de.c4vxl.gamelobby.utils.Item
 import de.c4vxl.gamemanager.gma.event.game.GameStartEvent
 import de.c4vxl.gamemanager.gma.event.game.GameStopEvent
