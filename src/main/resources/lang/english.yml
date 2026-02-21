@@ -23,3 +23,7 @@
 "interface.maps.item.lore.l2": "<white>$0</white> <gray>Vote(s)</gray>"
 "interface.maps.msg.already": "${prefix} <red>You can only vote once per game!</red>"
 "interface.maps.msg.success": "${prefix} <green>You voted for</green> $0"
+
+"end.won.title": "<green>Your team has won the game!</green>"
+"end.winner.title": "$0 <green>has won the game!</green>"
+"end.lost.title": "<red>Your team has lost the game!</red>"

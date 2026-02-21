@@ -25,6 +25,9 @@ class GameConnectionHandler : Listener {
     @EventHandler
     fun onGameQuit(event: GamePlayerQuitEvent) {
         Bukkit.getScheduler().runTaskLater(Main.instance, Runnable {
+            if (event.player.isSpectating)
+                return@Runnable
+
             // Teleport to spawn
             Lobby.send(event.player.bukkitPlayer)
         }, 10)

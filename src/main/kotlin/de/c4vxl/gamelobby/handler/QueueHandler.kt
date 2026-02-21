@@ -28,7 +28,7 @@ class QueueHandler : Listener {
         val mostVoted = MapVote.votes.getOrDefault(event.game, mutableMapOf())
             .mapValues { it.value.size }
             .map { it.value to it.key }
-            .minByOrNull { it.first }!!.second
+            .minByOrNull { it.first }?.second
 
         if (event.game.worldManager.forcemap == null)
             event.game.worldManager.forcemap = mostVoted

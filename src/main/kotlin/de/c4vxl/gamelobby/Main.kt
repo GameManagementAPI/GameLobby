@@ -3,6 +3,7 @@ package de.c4vxl.gamelobby
 import de.c4vxl.gamelobby.commands.SetSpawnCommand
 import de.c4vxl.gamelobby.handler.ConnectionHandler
 import de.c4vxl.gamelobby.handler.GameConnectionHandler
+import de.c4vxl.gamelobby.handler.GameEndHandler
 import de.c4vxl.gamelobby.handler.QueueHandler
 import de.c4vxl.gamemanager.language.Language
 import de.c4vxl.gamemanager.utils.ResourceUtils
@@ -64,6 +65,7 @@ class Main : JavaPlugin() {
         ConnectionHandler()
         GameConnectionHandler()
         QueueHandler()
+        GameEndHandler()
 
         // Logging
         logger.info("[+] $name has been enabled!")
