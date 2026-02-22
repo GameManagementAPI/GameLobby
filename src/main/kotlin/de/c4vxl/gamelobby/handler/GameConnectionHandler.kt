@@ -4,6 +4,7 @@ import de.c4vxl.gamelobby.Main
 import de.c4vxl.gamelobby.lobby.Lobby
 import de.c4vxl.gamemanager.gma.event.player.GamePlayerJoinedEvent
 import de.c4vxl.gamemanager.gma.event.player.GamePlayerQuitEvent
+import de.c4vxl.gamemanager.gma.event.player.GamePlayerSpectateEndEvent
 import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -24,12 +25,13 @@ class GameConnectionHandler : Listener {
 
     @EventHandler
     fun onGameQuit(event: GamePlayerQuitEvent) {
-        Bukkit.getScheduler().runTaskLater(Main.instance, Runnable {
-            if (event.player.isSpectating)
-                return@Runnable
+        // Teleport to spawn
+        Lobby.send(event.player.bukkitPlayer)
+    }
 
-            // Teleport to spawn
-            Lobby.send(event.player.bukkitPlayer)
-        }, 5)
+    @EventHandler
+    fun onSpectatorQuit(event: GamePlayerSpectateEndEvent) {
+        // Teleport to spawn
+        Lobby.send(event.player.bukkitPlayer)
     }
 }
