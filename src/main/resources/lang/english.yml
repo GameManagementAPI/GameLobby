@@ -1,4 +1,6 @@
 "lobby.join.welcome": "${prefix} <gray>Welcome back</gray> $0<gray>!</gray>"
+
+"command.setspawn.desc": "Allows you to set the spawn of the lobby"
 "command.setspawn.success": "${prefix} <green>Successfully set spawn position!</green>"
 
 "right-click": "<gray>| <b>Right click</b></gray>"

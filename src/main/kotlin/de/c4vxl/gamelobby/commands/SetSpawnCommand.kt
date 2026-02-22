@@ -1,6 +1,7 @@
 package de.c4vxl.gamelobby.commands
 
 import de.c4vxl.gamelobby.lobby.Lobby
+import de.c4vxl.gamemanager.language.Language
 import de.c4vxl.gamemanager.language.Language.Companion.language
 import de.c4vxl.gamemanager.plugin.enums.Permission
 import dev.jorel.commandapi.arguments.LocationType
@@ -16,6 +17,7 @@ object SetSpawnCommand {
         withPermission("${Permission.COMMAND_PREFIX.string}.setspawn")
         withAliases("ss")
         withUsage("/setspawn [position] [direction]")
+        withFullDescription(Language.default.child("gamelobby").get("command.setspawn.desc"))
 
         locationArgument("location", LocationType.BLOCK_POSITION, optional = true) {
             rotationArgument("direction", optional = true) {
