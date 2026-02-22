@@ -68,13 +68,17 @@ class GameSignHandler : Listener {
 
         event.isCancelled = false
 
-        val type = event.blockPlaced.type
+        val block = event.blockPlaced.state as? Sign ?: return
+
+        val type = block.type
+        val data = block.blockData
 
         // "Close" sign
         event.blockPlaced.type = Material.AIR
 
         Bukkit.getScheduler().runTaskLater(Main.instance, Runnable {
             event.blockPlaced.type = type
+            event.blockPlaced.blockData = data
 
             // Register sign
             registerSign(event.blockPlaced.location, size)
