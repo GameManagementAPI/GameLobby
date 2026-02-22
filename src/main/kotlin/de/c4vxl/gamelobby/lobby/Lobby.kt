@@ -25,7 +25,7 @@ object Lobby {
         }
         set(value) {
             Main.config.set("game.spawn", value)
-            Main.config.save(Main.instance.dataFolder.resolve("config.yml"))
+            Main.instance.saveConfig()
         }
 
     /**
