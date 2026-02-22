@@ -30,6 +30,6 @@ class GameConnectionHandler : Listener {
 
             // Teleport to spawn
             Lobby.send(event.player.bukkitPlayer)
-        }, 10)
+        }, 5)
     }
 }

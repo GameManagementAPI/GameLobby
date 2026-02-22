@@ -1,5 +1,6 @@
 package de.c4vxl.gamelobby
 
+import de.c4vxl.gamelobby.commands.GameSignCommand
 import de.c4vxl.gamelobby.commands.SetSpawnCommand
 import de.c4vxl.gamelobby.handler.*
 import de.c4vxl.gamemanager.language.Language
@@ -20,7 +21,6 @@ class Main : JavaPlugin() {
 
     override fun onLoad() {
         instance = this
-        Main.config = this.config
 
         // CommandAPI
         CommandAPI.onLoad(
@@ -31,6 +31,8 @@ class Main : JavaPlugin() {
     }
 
     override fun onEnable() {
+        Main.config = this.config
+
         // CommandAPI
         CommandAPI.onEnable()
 
@@ -57,6 +59,7 @@ class Main : JavaPlugin() {
 
         // Register commands
         SetSpawnCommand
+        GameSignCommand
 
         // Register handlers
         ConnectionHandler()
@@ -64,6 +67,7 @@ class Main : JavaPlugin() {
         QueueHandler()
         GameEndHandler()
         LobbyHandler()
+        GameSignHandler()
 
         // Logging
         logger.info("[+] $name has been enabled!")

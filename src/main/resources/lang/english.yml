@@ -32,3 +32,12 @@
 
 "lobby.item.spawn.name": "Back to spawn ${right-click}"
 "lobby.item.boost.name": "Boost ${right-click}"
+
+"command.gamesign.desc": "Create signs for joining games"
+
+"command.gamesign.failure.invalid_format": "${prefix} <red>Invalid game size format!</red> Use: ${teamAmount}x${teamSize}"
+"command.gamesign.failure.invalid_size": "${prefix} <red>This team size is not supported! No maps found!</red>"
+"command.gamesign.success": "${prefix} <green>Successfully created sign!</green> Place it anywhere!"
+"handler.gamesign.failure.already": "${prefix} <red>You are already in a game!</red>"
+"handler.gamesign.success": "${prefix} <green>Sign placed!</green>"
+"handler.gamesign.join.success": "<green>Joined</green> $0"
