@@ -31,7 +31,9 @@ class GameConnectionHandler : Listener {
 
     @EventHandler
     fun onSpectatorQuit(event: GamePlayerSpectateEndEvent) {
-        // Teleport to spawn
-        Lobby.send(event.player.bukkitPlayer)
+        Bukkit.getScheduler().runTaskLater(Main.instance, Runnable {
+            // Teleport to spawn
+            Lobby.send(event.player.bukkitPlayer)
+        }, 10L)
     }
 }
