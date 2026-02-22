@@ -2,6 +2,7 @@ package de.c4vxl.gamelobby
 
 import de.c4vxl.gamelobby.commands.GameSignCommand
 import de.c4vxl.gamelobby.commands.SetSpawnCommand
+import de.c4vxl.gamelobby.gui.SpectatorTeleporter
 import de.c4vxl.gamelobby.handler.*
 import de.c4vxl.gamemanager.language.Language
 import de.c4vxl.gamemanager.utils.ResourceUtils
@@ -68,6 +69,7 @@ class Main : JavaPlugin() {
         GameEndHandler()
         LobbyHandler()
         GameSignHandler()
+        SpectatorHandler()
 
         // Logging
         logger.info("[+] $name has been enabled!")

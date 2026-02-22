@@ -41,3 +41,10 @@
 "handler.gamesign.failure.already": "${prefix} <red>You are already in a game!</red>"
 "handler.gamesign.success": "${prefix} <green>Sign placed!</green>"
 "handler.gamesign.join.success": "<green>Joined</green> $0"
+
+"spectator.prefix": "Spectator | "
+"spectator.item.compass.name": "Teleporter ${right-click}"
+"spectator.item.next-game.name": "Next Game ${right-click}"
+"spectator.compass.item.lore.l1": "<gray>Team:</gray>"
+"spectator.compass.item.lore.l2": "$0"
+"spectator.compass.item.name": "<b>$0</b>"
