@@ -21,7 +21,7 @@ class SpectatorTeleporter(
 ) {
     val language = player.language.child("gamelobby")
 
-    val items = game.playerManager.alivePlayers.map { p ->
+    val items = game.playerManager.alivePlayers.filter { !it.isSpectating }.map { p ->
         Item.invClickItem(ItemBuilder(
             Material.PLAYER_HEAD,
             language.getCmp("spectator.compass.item.name", p.bukkitPlayer.name),
@@ -41,7 +41,7 @@ class SpectatorTeleporter(
         }.apply {
             val meta = this.itemMeta as? SkullMeta ?: return@apply
             meta.playerProfile = Bukkit.createProfile(p.bukkitPlayer.uniqueId)
-            meta.itemName(language.getCmp("spectator.compass.item.name", p.bukkitPlayer.name))
+            meta.displayName(language.getCmp("spectator.compass.item.name", p.bukkitPlayer.name))
             this.setItemMeta(meta)
         }
     }.toMutableList()
@@ -51,7 +51,7 @@ class SpectatorTeleporter(
      */
     fun open() = ScrollableInventory(
             items,
-            language.getCmp("interface.maps.title"),
+            language.getCmp("spectator.compass.title"),
             player
         ).open()
 }

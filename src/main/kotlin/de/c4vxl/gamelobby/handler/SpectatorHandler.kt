@@ -82,7 +82,13 @@ class SpectatorHandler : Listener {
         if (team?.hasPlayer(event.player.bukkitPlayer) == true)
             team.removePlayer(event.player.bukkitPlayer)
 
-        event.player.bukkitPlayer.activePotionEffects.forEach { event.player.bukkitPlayer.removePotionEffect(it.type) }
+        // Reset player
+        event.player.reset()
+        event.player.bukkitPlayer.let {
+            it.activePotionEffects.forEach { e -> it.removePotionEffect(e.type) }
+            it.isFlying = false
+            it.allowFlight = false
+        }
     }
 
     @EventHandler
