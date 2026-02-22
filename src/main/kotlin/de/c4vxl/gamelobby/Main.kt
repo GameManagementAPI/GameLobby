@@ -31,14 +31,13 @@ class Main : JavaPlugin() {
     }
 
     override fun onEnable() {
-        Main.config = this.config
-
         // CommandAPI
         CommandAPI.onEnable()
 
         // Load config
         saveResource("config.yml", false)
         reloadConfig()
+        Main.config = this.config
 
         // Register language extensions
         ResourceUtils.readResource("langs", Main::class.java).split("\n")
