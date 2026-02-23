@@ -32,6 +32,7 @@
 
 "lobby.item.spawn.name": "Back to spawn ${right-click}"
 "lobby.item.boost.name": "Boost ${right-click}"
+"lobby.item.private-game.name": "Create a private game ${right-click}"
 
 "command.gamesign.desc": "Create signs for joining games"
 
@@ -49,3 +50,11 @@
 "spectator.compass.item.lore.l1": "<gray>Team:</gray>"
 "spectator.compass.item.lore.l2": "<white>$0</white>"
 "spectator.compass.item.name": "<b>$0</b>"
+
+"interface.private-game.title": "<gold>Create a private game</gold>"
+"interface.private-game.item.name": "$0"
+"interface.private-game.item.lore.l1": "<white>Team amount:</white>"
+"interface.private-game.item.lore.l2": "<gray>$0</gray>"
+"interface.private-game.item.lore.l3": "<white>Team size:</white>"
+"interface.private-game.item.lore.l4": "<gray>$0</gray>"
+"interface.private-game.success": "${prefix} <green>Created private game of size</green> '$0'<green>!</green><br>${prefix} <gray>You can use <click:suggest_command:'/privategame invite '>'/privategame invite <player>'</click> to invite someone!</gray>"

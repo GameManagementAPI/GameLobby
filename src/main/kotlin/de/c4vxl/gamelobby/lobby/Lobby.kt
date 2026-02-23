@@ -1,9 +1,11 @@
 package de.c4vxl.gamelobby.lobby
 
 import de.c4vxl.gamelobby.Main
+import de.c4vxl.gamelobby.gui.PrivateGame
 import de.c4vxl.gamelobby.utils.Item
 import de.c4vxl.gamemanager.gma.player.GMAPlayer.Companion.gma
 import de.c4vxl.gamemanager.language.Language.Companion.language
+import de.c4vxl.gamemanager.plugin.enums.Permission
 import de.c4vxl.gamemanager.utils.ItemBuilder
 import org.bukkit.*
 import org.bukkit.entity.Player
@@ -54,6 +56,16 @@ object Lobby {
                 send(player)
             }
         )
+
+        if (player.hasPermission(Permission.COMMAND_PRIVATE_GAME.string)) {
+            player.inventory.setItem(
+                4,
+                Item.rightClickItem(ItemBuilder(
+                    Material.NAME_TAG,
+                    player.language.child("gamelobby").getCmp("lobby.item.private-game.name")
+                )) { PrivateGame(player).open() }
+            )
+        }
 
         player.inventory.setItem(
             7,
