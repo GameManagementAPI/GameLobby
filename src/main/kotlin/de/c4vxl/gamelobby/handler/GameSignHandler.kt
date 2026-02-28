@@ -103,8 +103,10 @@ class GameSignHandler : Listener {
         val game = GMA.getOrCreate(size)
 
         // Stop game if no maps available
-        if (game.worldManager.availableMaps.isEmpty())
+        if (game.worldManager.availableMaps.isEmpty()) {
             GMA.unregisterGame(game, true)
+            return
+        }
 
         // Join
         val success = event.player.gma.join(game, false)
