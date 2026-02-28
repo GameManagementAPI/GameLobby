@@ -34,15 +34,25 @@ class ScrollableInventory(
                 Material.ARROW,
                 player.language.child("gamelobby").getCmp("scrollable.arrow.back")
             )) { open(page - 1) })
+        else
+            inventory.setItem(0, Item.invClickItem(ItemBuilder(
+                Material.LIGHT_GRAY_STAINED_GLASS_PANE,
+                Component.text("  ")
+            )) {})
 
         if (page < totalPages - 1)
-            inventory.setItem(0, Item.invClickItem(ItemBuilder(
+            inventory.setItem(8, Item.invClickItem(ItemBuilder(
                 Material.ARROW,
                 player.language.child("gamelobby").getCmp("scrollable.arrow.next")
             )) {
                 if (page < totalPages - 1)
                     open(page + 1)
             })
+        else
+            inventory.setItem(8, Item.invClickItem(ItemBuilder(
+                Material.LIGHT_GRAY_STAINED_GLASS_PANE,
+                Component.text("  ")
+            )) {})
 
         // Add items to page
         val start = page * itemsPerPage
