@@ -32,7 +32,7 @@ class GameEndHandler : Listener {
         }
 
         // Display lost message
-        event.teamsLost.forEach { it.players.forEach { player ->
+        event.teamsLost.forEach { it.players.filter { p -> p.game == event.game }.forEach { player ->
             player.bukkitPlayer.sendTitlePart(TitlePart.TITLE, player.language
                 .child("gamelobby")
                 .getCmp("end.lost.title", event.winnerTeam?.label ?: "/")
@@ -48,7 +48,7 @@ class GameEndHandler : Listener {
         }
 
         // Display won message
-        event.winnerTeam?.players?.forEach {
+        event.winnerTeam?.players?.filter { p -> p.game == event.game }?.forEach {
             it.bukkitPlayer.sendTitlePart(TitlePart.TITLE, it.language.child("gamelobby").getCmp("end.won.title"))
         }
     }
