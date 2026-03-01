@@ -2,6 +2,7 @@ package de.c4vxl.gamelobby.handler
 
 import de.c4vxl.gamelobby.Main
 import de.c4vxl.gamelobby.gui.SpectatorTeleporter
+import de.c4vxl.gamelobby.lobby.Lobby.isInLobby
 import de.c4vxl.gamelobby.utils.Item
 import de.c4vxl.gamemanager.gma.GMA
 import de.c4vxl.gamemanager.gma.event.player.GamePlayerSpectateEndEvent
@@ -16,12 +17,14 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.entity.EntityDamageEvent
+import org.bukkit.event.entity.EntityMountEvent
 import org.bukkit.event.entity.EntityTargetEvent
 import org.bukkit.event.entity.EntityTargetLivingEntityEvent
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.player.PlayerAttemptPickupItemEvent
 import org.bukkit.event.player.PlayerDropItemEvent
 import org.bukkit.event.player.PlayerInteractEvent
+import org.bukkit.event.player.PlayerSwapHandItemsEvent
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 
@@ -117,6 +120,14 @@ class SpectatorHandler : Listener {
     }
 
     @EventHandler
+    fun onMount(event: EntityMountEvent) {
+        if ((event.entity as? Player)?.gma?.isSpectating != true)
+            return
+
+        event.isCancelled = true
+    }
+
+    @EventHandler
     fun onItemDrop(event: PlayerDropItemEvent) {
         if (!event.player.gma.isSpectating) return
 
@@ -153,6 +164,13 @@ class SpectatorHandler : Listener {
         if (!target.gma.isSpectating) return
 
         event.target = null
+        event.isCancelled = true
+    }
+
+    @EventHandler
+    fun onOffhandSwap(event: PlayerSwapHandItemsEvent) {
+        if (!event.player.gma.isSpectating) return
+
         event.isCancelled = true
     }
 }
