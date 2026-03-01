@@ -68,6 +68,7 @@ class Main : JavaPlugin() {
         LobbyHandler()
         GameSignHandler()
         SpectatorHandler()
+        VisibilityHandler()
 
         // Logging
         logger.info("[+] $name has been enabled!")

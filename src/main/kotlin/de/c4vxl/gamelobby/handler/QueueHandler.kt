@@ -60,6 +60,7 @@ class QueueHandler : Listener {
         val player = event.player.bukkitPlayer
         val language = event.player.language.child("gamelobby")
 
+        player.inventory.clear()
         player.inventory.setItem(
             1,
             Item.rightClickItem(ItemBuilder(

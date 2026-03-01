@@ -33,6 +33,9 @@
 "lobby.item.spawn.name": "Back to spawn ${right-click}"
 "lobby.item.boost.name": "Boost ${right-click}"
 "lobby.item.private-game.name": "Create a private game ${right-click}"
+"lobby.item.hide":
+  hidden: "Other players: <red><b>Hidden</b></red>"
+  shown: "Other players: <green><b>Visible</b></green>"
 
 "command.gamesign.desc": "Create signs for joining games"
 

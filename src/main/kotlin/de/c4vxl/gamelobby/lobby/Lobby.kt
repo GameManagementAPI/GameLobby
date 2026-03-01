@@ -8,7 +8,10 @@ import de.c4vxl.gamemanager.language.Language.Companion.language
 import de.c4vxl.gamemanager.plugin.enums.Permission
 import de.c4vxl.gamemanager.utils.ItemBuilder
 import org.bukkit.*
+import org.bukkit.configuration.file.YamlConfiguration
+import org.bukkit.configuration.file.YamlConstructor
 import org.bukkit.entity.Player
+import java.io.File
 
 /**
  * Main interface for lobby actions
@@ -30,6 +33,27 @@ object Lobby {
             Main.config.save(Main.instance.dataFolder.resolve("config.yml"))
         }
 
+
+    /**
+     * Returns the player preference for showing other players
+     * @param player The player
+     * @param newValue If set, new value will be saved
+     */
+    fun showPlayers(player: Player, newValue: Boolean? = null): Boolean {
+        // Get config
+        val configFile = File(Main.config.getString("config.lobby.visibility-db") ?: "player-visibility.yml")
+        val config = YamlConfiguration.loadConfiguration(configFile)
+
+        // Update value
+        newValue?.let {
+            config.set(player.uniqueId.toString(), it)
+            config.save(configFile)
+        }
+
+        // Return config value
+        return config.getBoolean(player.uniqueId.toString(), true)
+    }
+
     /**
      * Sends a player to the lobby
      * @param player The player
@@ -43,6 +67,10 @@ object Lobby {
         player.teleport(spawn)
 
         // Give items
+        equipItems(player)
+    }
+
+    private fun equipItems(player: Player) {
         player.inventory.setItem(
             1,
             Item.rightClickItem(ItemBuilder(
@@ -57,9 +85,29 @@ object Lobby {
             }
         )
 
+        val show = showPlayers(player)
+
+        player.inventory.setItem(
+            4,
+            Item.rightClickItem(ItemBuilder(
+                if (show) Material.LIME_DYE
+                else      Material.RED_DYE,
+                player.language.child("gamelobby").getCmp("lobby.item.hide.${if (show) "shown" else "hidden"}")
+            )) {
+                if (player.hasCooldown(it.item!!.type))
+                    return@rightClickItem
+
+                showPlayers(player, !show)
+                equipItems(player)
+
+                player.setCooldown(Material.RED_DYE, 1 * 20)
+                player.setCooldown(Material.LIME_DYE, 1 * 20)
+            }
+        )
+
         if (player.hasPermission(Permission.COMMAND_PRIVATE_GAME.string)) {
             player.inventory.setItem(
-                4,
+                5,
                 Item.rightClickItem(ItemBuilder(
                     Material.NAME_TAG,
                     player.language.child("gamelobby").getCmp("lobby.item.private-game.name")
