@@ -1,10 +1,18 @@
 config:
+  # The formatted text shown before all plugin messages in chat
   prefix: "<gray>[</gray><green>Lobby</green><gray>]</gray>"
+
+  # If enabled, players will automatically receive a welcome message when joining the lobby
   send-welcome-message: true
 
   lobby:
+    # The cooldown (in seconds) a player must wait before using the lobby boost again
     boost-cooldown: 5
+
+    # The velocity multiplier of the booster
     boost-strength: 2.2
+
+    # The cooldown (in seconds) between teleport uses in the lobby
     tp-cooldown: 3
 
     # The style of signs
@@ -15,9 +23,25 @@ config:
       line2: "<gold>$size</gold>"
       line3: "<aqua>===============</aqua>"
 
+    # The file name used to store player visibility preferences
     visibility-db: "player-visibility.yml"
 
   queue:
+    # The material used as the item for selecting a team in the queue
     team-selection-item: "WHITE_BANNER"
+
+    # The material used as the item for voting on maps in the queue
     map-voting-item: "MAP"
+
+    # The material used as the item that allows a player to leave the queue
     leave-item: "OAK_DOOR"
+
+# Specify custom team labels
+team-labels:
+  # If set to 'true', team labels specified in map-metadata files will be overwritten
+  # If set to 'false', team labels from map-metadata will be used
+  overwrite-labels: false
+
+  # Custom prefixes for teams
+  0: "<yellow>HELLO</yellow>"
+  # ...
