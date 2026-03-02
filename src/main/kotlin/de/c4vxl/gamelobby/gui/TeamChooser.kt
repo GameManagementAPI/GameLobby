@@ -66,7 +66,7 @@ class TeamChooser(
             game.teamManager.join(player.gma, team.id)
 
             // Send message
-            player.sendMessage(language.getCmp("interface.team.msg.success", team.label))
+            player.sendMessage(language.getCmp("interface.team.msg.success", getLabel(team)))
 
             // Reload page
             event.inventory.close()
