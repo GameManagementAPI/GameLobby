@@ -23,33 +23,34 @@ class GameEndHandler : Listener {
         if (event.winnerTeam == null)
             return
 
+        val winnerLabel = if (event.game.size.teamSize == 1) event.winnerTeam?.players?.firstOrNull()?.bukkitPlayer?.name ?: "/"
+                          else event.winnerTeam?.label ?: "/"
+
         // Display global win message
         event.game.players.forEach {
             it.bukkitPlayer.sendTitlePart(TitlePart.TITLE, it.language
                 .child("gamelobby")
-                .getCmp("end.winner.title", event.winnerTeam?.label ?: "/")
+                .getCmp("end.winner.title", winnerLabel)
             )
         }
 
         // Display lost message
         event.teamsLost.forEach { it.players.filter { p -> p.game == event.game }.forEach { player ->
-            player.bukkitPlayer.sendTitlePart(TitlePart.TITLE, player.language
+            player.bukkitPlayer.sendActionBar(player.language
                 .child("gamelobby")
-                .getCmp("end.lost.title", event.winnerTeam?.label ?: "/")
+                .getCmp(
+                    if (event.game.size.teamSize == 1) "end.lost.single.title"
+                    else "end.lost.title"
+                )
             )
         } }
 
-        // Display winner team win message
-        event.game.players.forEach {
-            it.bukkitPlayer.sendActionBar(it.language
-                .child("gamelobby")
-                .getCmp("end.winner.title", event.winnerTeam?.label ?: "/")
-            )
-        }
-
         // Display won message
         event.winnerTeam?.players?.filter { p -> p.game == event.game }?.forEach {
-            it.bukkitPlayer.sendTitlePart(TitlePart.TITLE, it.language.child("gamelobby").getCmp("end.won.title"))
+            it.bukkitPlayer.sendTitlePart(TitlePart.TITLE, it.language.child("gamelobby").getCmp(
+                if (event.game.size.teamSize == 1) "end.won.single.title"
+                else "end.won.title"
+            ))
         }
     }
 

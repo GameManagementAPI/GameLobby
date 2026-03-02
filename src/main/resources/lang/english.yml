@@ -27,8 +27,10 @@
 "interface.maps.msg.success": "${prefix} <green>You voted for</green> $0"
 
 "end.won.title": "<green>Your team has won the game!</green>"
+"end.won.single.title": "<green>You have won the game!</green>"
 "end.winner.title": "$0 <green>has won the game!</green>"
 "end.lost.title": "<red>Your team has lost the game!</red>"
+"end.lost.single.title": "<red>You have lost the game!</red>"
 
 "lobby.item.spawn.name": "Back to spawn ${right-click}"
 "lobby.item.boost.name": "Boost ${right-click}"
