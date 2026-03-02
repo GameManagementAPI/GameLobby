@@ -75,7 +75,9 @@ class SpectatorHandler : Listener {
                 )
             ) {
                 it.player.gma.quit()
-                it.player.gma.join(GMA.getOrCreate(event.game.size))
+                Bukkit.getScheduler().runTaskLater(Main.instance, Runnable {
+                    it.player.gma.join(GMA.getOrCreate(event.game.size))
+                }, 5)
             })
         }
     }
