@@ -36,6 +36,12 @@ config:
     # The material used as the item that allows a player to leave the queue
     leave-item: "OAK_DOOR"
 
+    # If set to false, players won't be able to choose a team in solo games
+    use-team-selection-item-solos: true
+
+    # If set to false, players won't be able to choose a team in multi-player-team games
+    use-team-selection-item-multiple: true
+
 # Specify custom team labels
 team-labels:
   # If set to 'true', team labels specified in map-metadata files will be overwritten
@@ -43,5 +49,5 @@ team-labels:
   overwrite-labels: false
 
   # Custom prefixes for teams
-  0: "<yellow>HELLO</yellow>"
+  # 0: "Team 1"
   # ...

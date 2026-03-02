@@ -61,19 +61,26 @@ class QueueHandler : Listener {
         val language = event.player.language.child("gamelobby")
 
         player.inventory.clear()
-        player.inventory.setItem(
-            1,
-            Item.rightClickItem(ItemBuilder(
-                Material.valueOf(Main.config.getString("config.queue.team-selection-item") ?: ""),
-                language.getCmp("queue.item.team.name")
-            )) {
-                player.playSound(player.location, Sound.BLOCK_CHEST_OPEN, 1.0f, 1.0f);
-                TeamChooser(player, game).open()
-            }
-        )
+
+        val useTeamSelectorItem: Boolean =
+            Main.config.getBoolean("config.queue.use-team-selection-item-solos", true) && game.size.teamSize == 1
+                    || Main.config.getBoolean("config.queue.use-team-selection-item-multiple", true) && game.size.teamSize > 1
+
+        if (useTeamSelectorItem)
+            player.inventory.setItem(
+                1,
+                Item.rightClickItem(ItemBuilder(
+                    Material.valueOf(Main.config.getString("config.queue.team-selection-item") ?: ""),
+                    language.getCmp("queue.item.team.name")
+                )) {
+                    player.playSound(player.location, Sound.BLOCK_CHEST_OPEN, 1.0f, 1.0f);
+                    TeamChooser(player, game).open()
+                }
+            )
 
         player.inventory.setItem(
-            4,
+            if (useTeamSelectorItem) 4
+            else 1,
             Item.rightClickItem(ItemBuilder(
                 Material.valueOf(Main.config.getString("config.queue.map-voting-item") ?: ""),
                 language.getCmp("queue.item.vote.name")
