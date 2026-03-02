@@ -3,6 +3,8 @@ package de.c4vxl.gamelobby.handler
 import de.c4vxl.gamelobby.Main
 import de.c4vxl.gamelobby.lobby.Lobby
 import de.c4vxl.gamelobby.lobby.Lobby.isInLobby
+import de.c4vxl.gamemanager.gma.event.game.GameStateChangeEvent
+import de.c4vxl.gamemanager.gma.game.type.GameState
 import org.bukkit.Bukkit
 import org.bukkit.GameMode
 import org.bukkit.entity.Player
@@ -22,6 +24,20 @@ import org.bukkit.event.player.PlayerSwapHandItemsEvent
 class LobbyHandler : Listener {
     init {
         Bukkit.getPluginManager().registerEvents(this, Main.instance)
+    }
+
+    @EventHandler
+    fun onGameStart(event: GameStateChangeEvent) {
+        // Need to do this while game state is starting
+        // Because in this state the player still has the default Bukkit scoreboard
+        // This is needed because otherwise the player cannot be removed from the team
+        if (event.newState != GameState.STARTING)
+            return
+
+        // Remove all players from team
+        event.game.playerManager.players.forEach {
+            Lobby.lobbyTeam.removePlayer(it.bukkitPlayer)
+        }
     }
 
     @EventHandler

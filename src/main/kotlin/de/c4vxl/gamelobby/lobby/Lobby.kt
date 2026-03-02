@@ -9,8 +9,8 @@ import de.c4vxl.gamemanager.plugin.enums.Permission
 import de.c4vxl.gamemanager.utils.ItemBuilder
 import org.bukkit.*
 import org.bukkit.configuration.file.YamlConfiguration
-import org.bukkit.configuration.file.YamlConstructor
 import org.bukkit.entity.Player
+import org.bukkit.scoreboard.Team
 import java.io.File
 
 /**
@@ -32,6 +32,15 @@ object Lobby {
             Main.config.set("game.spawn", value)
             Main.config.save(Main.instance.dataFolder.resolve("config.yml"))
         }
+
+    val lobbyTeam: Team
+        get() =
+            Bukkit.getScoreboardManager().mainScoreboard.let {
+                it.getTeam("gma.lobby") ?:
+                it.registerNewTeam("gma.lobby")
+            }.also {
+                it.setOption(Team.Option.COLLISION_RULE, Team.OptionStatus.NEVER)
+            }
 
 
     /**
@@ -68,6 +77,9 @@ object Lobby {
 
         // Give items
         equipItems(player)
+
+        // Add to team
+        lobbyTeam.addPlayer(player)
     }
 
     private fun equipItems(player: Player) {
