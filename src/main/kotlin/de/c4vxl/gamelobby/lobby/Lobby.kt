@@ -78,8 +78,14 @@ object Lobby {
         // Give items
         equipItems(player)
 
-        // Add to team
-        lobbyTeam.addPlayer(player)
+        // Disable collision
+        // Try to use the team the player is already in
+        Bukkit.getScoreboardManager().mainScoreboard
+            .getPlayerTeam(player)
+            ?.setOption(Team.Option.COLLISION_RULE, Team.OptionStatus.NEVER)
+
+            // Otherwise add to lobby team
+            ?: lobbyTeam.addPlayer(player)
     }
 
     private fun equipItems(player: Player) {
