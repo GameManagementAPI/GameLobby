@@ -1,6 +1,7 @@
 package de.c4vxl.gamelobby.handler
 
 import de.c4vxl.gamelobby.Main
+import de.c4vxl.gamelobby.events.signs.LobbyPlayerSignClickEvent
 import de.c4vxl.gamemanager.gma.GMA
 import de.c4vxl.gamemanager.gma.game.type.GameSize
 import de.c4vxl.gamemanager.gma.player.GMAPlayer.Companion.gma
@@ -98,6 +99,13 @@ class GameSignHandler : Listener {
         ) ?: return) ?: return
 
         event.isCancelled = true
+
+        // Call event
+        LobbyPlayerSignClickEvent(event.player, block).let {
+            it.callEvent()
+            if (it.isCancelled)
+                return
+        }
 
         // Get or create a game with desired size
         val game = GMA.getOrCreate(size)

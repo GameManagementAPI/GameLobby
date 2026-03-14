@@ -1,6 +1,8 @@
 package de.c4vxl.gamelobby.lobby
 
 import de.c4vxl.gamelobby.Main
+import de.c4vxl.gamelobby.events.lobby.LobbyPlayerEquipEvent
+import de.c4vxl.gamelobby.events.lobby.LobbyPlayerSendEvent
 import de.c4vxl.gamelobby.gui.PrivateGame
 import de.c4vxl.gamelobby.utils.Item
 import de.c4vxl.gamemanager.gma.player.GMAPlayer.Companion.gma
@@ -68,6 +70,14 @@ object Lobby {
      * @param player The player
      */
     fun send(player: Player) {
+        // Call event
+        LobbyPlayerSendEvent(player).let {
+            it.callEvent()
+
+            if (it.isCancelled)
+                return
+        }
+
         // Reset player
         player.gma.reset()
         player.gameMode = GameMode.SURVIVAL
@@ -148,6 +158,14 @@ object Lobby {
                 )
             }
         )
+
+        // Call event
+        LobbyPlayerEquipEvent(player).let {
+            it.callEvent()
+
+            if (it.isCancelled)
+                player.inventory.clear()
+        }
     }
 
     val Player.isInLobby

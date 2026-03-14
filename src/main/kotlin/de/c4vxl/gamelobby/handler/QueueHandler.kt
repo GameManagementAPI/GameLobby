@@ -1,6 +1,8 @@
 package de.c4vxl.gamelobby.handler
 
 import de.c4vxl.gamelobby.Main
+import de.c4vxl.gamelobby.events.queue.LobbyPlayerQueueJoinEvent
+import de.c4vxl.gamelobby.events.queue.LobbyPlayerQueueJoinedEvent
 import de.c4vxl.gamelobby.gui.MapVote
 import de.c4vxl.gamelobby.gui.TeamChooser
 import de.c4vxl.gamelobby.utils.Item
@@ -78,6 +80,13 @@ class QueueHandler : Listener {
                 }
             )
 
+        LobbyPlayerQueueJoinEvent(player).let {
+            it.callEvent()
+
+            if (!it.equipItems)
+                return
+        }
+
         player.inventory.setItem(
             if (useTeamSelectorItem) 4
             else 1,
@@ -100,5 +109,7 @@ class QueueHandler : Listener {
                 player.playSound(player.location, Sound.BLOCK_BAMBOO_HIT, 1.0f, 1.0f);
             }
         )
+
+        LobbyPlayerQueueJoinedEvent(player).callEvent()
     }
 }
