@@ -5,6 +5,7 @@ import de.c4vxl.gamelobby.lobby.Lobby
 import de.c4vxl.gamemanager.language.Language.Companion.language
 import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
+import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerQuitEvent
@@ -14,10 +15,12 @@ class ConnectionHandler : Listener {
         Bukkit.getPluginManager().registerEvents(this, Main.instance)
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.NORMAL)
     fun onJoin(event: PlayerJoinEvent) {
         // Move to lobby
-        Lobby.send(event.player)
+        Bukkit.getScheduler().runTask(Main.instance, Runnable {
+            Lobby.send(event.player)
+        })
 
         // Send welcome message
         if (Main.config.getBoolean("config.send-welcome-message", true))
