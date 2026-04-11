@@ -20,11 +20,10 @@ class GameEndHandler : Listener {
 
     @EventHandler
     fun onGameEnd(event: GameEndEvent) {
-        if (event.winnerTeam == null)
-            return
+        val winnerTeam = event.winnerTeams.firstOrNull() ?: return
 
-        val winnerLabel = if (event.game.size.teamSize == 1) event.winnerTeam?.players?.firstOrNull()?.bukkitPlayer?.name ?: "/"
-                          else event.winnerTeam?.label ?: "/"
+        val winnerLabel = if (event.game.size.teamSize == 1) winnerTeam.players.firstOrNull()?.bukkitPlayer?.name ?: "/"
+                          else winnerTeam.label
 
         // Display global win message
         event.game.players.forEach {
@@ -46,7 +45,7 @@ class GameEndHandler : Listener {
         } }
 
         // Display won message
-        event.winnerTeam?.players?.filter { p -> p.game == event.game }?.forEach {
+        winnerTeam.players.filter { p -> p.game == event.game }.forEach {
             it.bukkitPlayer.sendTitlePart(TitlePart.TITLE, it.language.child("gamelobby").getCmp(
                 if (event.game.size.teamSize == 1) "end.won.single.title"
                 else "end.won.title"
