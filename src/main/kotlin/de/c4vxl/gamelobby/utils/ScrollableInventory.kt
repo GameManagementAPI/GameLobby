@@ -16,17 +16,25 @@ class ScrollableInventory(
     private val items: MutableList<ItemStack>,
     private val title: Component,
     private val player: Player,
-    private val size: Int = 9 * 1,
-    private val itemsPerPage: Int = size - 2
+    private val numRows: Int = 1
 ) {
+    private val itemsPerPage: Int = numRows * 7
     private val totalPages: Int = (items.size + itemsPerPage - 1) / itemsPerPage
 
     /**
      * Returns a specific page
      * @param page The page
      */
-    fun page(page: Int): Inventory {
-        val inventory = Bukkit.createInventory(null, size, title)
+    private fun page(page: Int): Inventory {
+        val inventory = Bukkit.createInventory(null, 9 * (numRows + 2), title)
+
+        // Add filler items
+        val filler = Item.invClickItem(ItemBuilder(Material.GRAY_STAINED_GLASS_PANE, Component.empty())) {}
+        val lastRowFirstSlot = inventory.size - 9
+        for (i in 0..8) inventory.setItem(i, filler)
+        for (i in 0..lastRowFirstSlot step 9) inventory.setItem(i, filler)
+        for (i in 8..<inventory.size step 9) inventory.setItem(i, filler)
+        for (i in lastRowFirstSlot..<inventory.size) inventory.setItem(i, filler)
 
         // Navigation arrows
         if (page > 0)
@@ -34,11 +42,6 @@ class ScrollableInventory(
                 Material.ARROW,
                 player.language.child("gamelobby").getCmp("scrollable.arrow.back")
             )) { open(page - 1) })
-        else
-            inventory.setItem(0, Item.invClickItem(ItemBuilder(
-                Material.LIGHT_GRAY_STAINED_GLASS_PANE,
-                Component.text("  ")
-            )) {})
 
         if (page < totalPages - 1)
             inventory.setItem(8, Item.invClickItem(ItemBuilder(
@@ -48,18 +51,13 @@ class ScrollableInventory(
                 if (page < totalPages - 1)
                     open(page + 1)
             })
-        else
-            inventory.setItem(8, Item.invClickItem(ItemBuilder(
-                Material.LIGHT_GRAY_STAINED_GLASS_PANE,
-                Component.text("  ")
-            )) {})
 
         // Add items to page
         val start = page * itemsPerPage
-        val end = (start + itemsPerPage).coerceAtMost(items.size)
-
-        for (i in start until end)
-            inventory.setItem(i - start + 1, items[i])
+        items
+            .drop(start)
+            .take(itemsPerPage)
+            .forEach { inventory.addItem(it) }
 
         return inventory
     }

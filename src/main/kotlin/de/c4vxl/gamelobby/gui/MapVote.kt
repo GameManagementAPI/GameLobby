@@ -71,6 +71,7 @@ class MapVote(
     fun open() = ScrollableInventory(
             items,
             language.getCmp("interface.maps.title"),
-            player
+            player,
+        2
         ).open()
 }
