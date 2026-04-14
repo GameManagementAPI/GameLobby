@@ -11,32 +11,22 @@ object Item {
         builder: ItemBuilder,
         handler: (PlayerInteractEvent) -> Unit
     ): ItemStack =
-        builder.onEvent(
-            PlayerInteractEvent::class.java,
-            object : ItemBuilder.ItemEventHandler<PlayerInteractEvent> {
-                override fun handle(event: PlayerInteractEvent) {
-                    event.isCancelled = true
+        builder.onEvent(PlayerInteractEvent::class.java) { event ->
+            event.isCancelled = true
 
-                    if (event.action != Action.RIGHT_CLICK_AIR && event.action != Action.RIGHT_CLICK_BLOCK)
-                        return
+            if (event.action != Action.RIGHT_CLICK_AIR && event.action != Action.RIGHT_CLICK_BLOCK)
+                return@onEvent
 
-                    handler(event)
-                }
-            }
-        ).build()
+            handler(event)
+        }.build()
 
     fun invClickItem(
         builder: ItemBuilder,
         handler: (InventoryClickEvent) -> Unit
     ): ItemStack =
-        builder.onEvent(
-            InventoryClickEvent::class.java,
-            object : ItemBuilder.ItemEventHandler<InventoryClickEvent> {
-                override fun handle(event: InventoryClickEvent) {
-                    event.isCancelled = true
+        builder.onEvent(InventoryClickEvent::class.java) { event ->
+            event.isCancelled = true
 
-                    handler(event)
-                }
-            }
-        ).build()
+            handler(event)
+        }.build()
 }
