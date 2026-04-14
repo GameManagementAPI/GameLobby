@@ -1,18 +1,15 @@
 package de.c4vxl.gamelobby.gui
 
-import de.c4vxl.gamelobby.Main
 import de.c4vxl.gamelobby.utils.Item
 import de.c4vxl.gamelobby.utils.ScrollableInventory
 import de.c4vxl.gamemanager.gma.game.Game
 import de.c4vxl.gamemanager.gma.player.GMAPlayer.Companion.gma
-import de.c4vxl.gamemanager.gma.team.Team
 import de.c4vxl.gamemanager.language.Language.Companion.language
 import de.c4vxl.gamemanager.utils.ItemBuilder
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.TextComponent
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
-import net.kyori.adventure.text.minimessage.MiniMessage
 import org.bukkit.Material
 import org.bukkit.Sound
 import org.bukkit.entity.Player
@@ -26,19 +23,13 @@ class TeamChooser(
 ) {
     val language = player.language.child("gamelobby")
 
-    private fun getLabel(team: Team): String =
-        if (Main.config.getBoolean("team-labels.overwrite-labels", false))
-            Main.config.getString("team-labels.${team.id}") ?: team.label
-        else
-            team.label
-
     val items = game.teamManager.teams.values.map { team ->
         Item.invClickItem(
             ItemBuilder(
             if (team.players.isEmpty()) Material.GREEN_STAINED_GLASS_PANE
             else if (!team.isFull) Material.ORANGE_STAINED_GLASS_PANE
             else Material.RED_STAINED_GLASS_PANE,
-            MiniMessage.miniMessage().deserialize(getLabel(team)),
+            team.label(player.language),
             lore = buildList {
                 add(language.getCmp("interface.team.item.lore.l1") as TextComponent)
                 addAll(team.players.map { Component.text("- ${it.bukkitPlayer.name}").color(NamedTextColor.WHITE) })
@@ -66,7 +57,7 @@ class TeamChooser(
             game.teamManager.join(player.gma, team.id)
 
             // Send message
-            player.sendMessage(language.getCmp("interface.team.msg.success", getLabel(team)))
+            player.sendMessage(language.getCmp("interface.team.msg.success", team.labelStr(player.language)))
 
             // Reload page
             event.inventory.close()

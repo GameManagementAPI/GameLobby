@@ -41,13 +41,3 @@ config:
 
     # If set to false, players won't be able to choose a team in multi-player-team games
     use-team-selection-item-multiple: true
-
-# Specify custom team labels
-team-labels:
-  # If set to 'true', team labels specified in map-metadata files will be overwritten
-  # If set to 'false', team labels from map-metadata will be used
-  overwrite-labels: false
-
-  # Custom prefixes for teams
-  # 0: "Team 1"
-  # ...

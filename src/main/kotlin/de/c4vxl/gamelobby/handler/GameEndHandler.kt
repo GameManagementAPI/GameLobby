@@ -22,14 +22,11 @@ class GameEndHandler : Listener {
     fun onGameEnd(event: GameEndEvent) {
         val winnerTeam = event.winnerTeams.firstOrNull() ?: return
 
-        val winnerLabel = if (event.game.size.teamSize == 1) winnerTeam.players.firstOrNull()?.bukkitPlayer?.name ?: "/"
-                          else winnerTeam.label
-
         // Display global win message
         event.game.players.forEach {
             it.bukkitPlayer.sendTitlePart(TitlePart.TITLE, it.language
                 .child("gamelobby")
-                .getCmp("end.winner.title", winnerLabel)
+                .getCmp("end.winner.title", winnerTeam.labelStr(it.language))
             )
         }
 

@@ -27,7 +27,7 @@ class SpectatorTeleporter(
             language.getCmp("spectator.compass.item.name", p.bukkitPlayer.name),
             lore = mutableListOf(
                 language.getCmp("spectator.compass.item.lore.l1") as TextComponent,
-                language.getCmp("spectator.compass.item.lore.l2", p.team?.label ?: "/") as TextComponent
+                language.getCmp("spectator.compass.item.lore.l2", p.team?.labelStr(p.language) ?: "/") as TextComponent
             )
         )) {
             if (!player.gma.isSpectating)
