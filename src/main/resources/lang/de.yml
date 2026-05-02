@@ -1,0 +1,65 @@
+"lobby.join.welcome": "${prefix} <gray>Willkommen zurück</gray> $0<gray>!</gray>"
+
+"command.setspawn.desc": "Erlaubt es Server-Admins den Spawn der lobby zu setzen"
+"command.setspawn.success": "${prefix} <green>Spawnpunkt wurde erfolgreich gesetzt!</green>"
+
+"right-click": "<gray>| <b>Rechts klick</b></gray>"
+
+"scrollable.arrow.back": "<b>Vorherige Seite</b>"
+"scrollable.arrow.next": "<b>Nächste Seite</b>"
+
+"queue.item.team.name": "Wähle ein Team ${right-click}"
+"queue.item.vote.name": "Stimme für eine Map ab ${right-click}"
+"queue.item.leave.name": "<red>Warteschlange verlassen</red> ${right-click}"
+"queue.inventory.team.title": "<red>Wähle ein Team</red>"
+"queue.inventory.team.item.lore.l1": "<gold><b>Spieler:</b></gold>"
+
+
+"interface.team.title": "<red>Wähle ein Team</red>"
+"interface.team.item.lore.l1": "<gold><b>Spieler:</b></gold>"
+"interface.team.msg.full": "${prefix} <red>Dieses Team ist bereits voll!</red>"
+"interface.team.msg.success": "${prefix} <green>Du hast das Team <white>'$0'</white> betreten!</green>"
+
+"interface.maps.title": "<red>Wähle eine Map</red>"
+"interface.maps.item.lore.l1": "<gray>Erbauer: </gray>"
+"interface.maps.item.lore.l2": "<white>$0</white> <gray>Stimme(n)</gray>"
+"interface.maps.msg.already": "${prefix} <red>Du kannst nur einmal pro Spiel abstimmen!</red>"
+"interface.maps.msg.success": "${prefix} <green>Du hast für <white>$0</white> abgestimmt</green>"
+
+"end.won.title": "<green>Dein Team hat das Spiel gewonnen!</green>"
+"end.won.single.title": "<green>Du hast das Spiel gewonnen!</green>"
+"end.winner.title": "$0 <green>hat das Spiel gewonnen!</green>"
+"end.lost.title": "<red>Dein Team hat das Spiel verloren!</red>"
+"end.lost.single.title": "<red>Du hast das Spiel verloren!</red>"
+
+"lobby.item.spawn.name": "Zurück zum Spawn ${right-click}"
+"lobby.item.boost.name": "Boost ${right-click}"
+"lobby.item.private-game.name": "Privates Spiel erstellen ${right-click}"
+"lobby.item.hide":
+  hidden: "Andere Spieler: <red><b>Versteckt</b></red>"
+  shown: "Andere Spieler: <green><b>Sichtbar</b></green>"
+
+"command.gamesign.desc": "Erstelle Schilder um Spielen beizutreten"
+
+"command.gamesign.failure.invalid_format": "${prefix} <red>Falsches Großen-format!</red> Benutze: ${teamAmount}x${teamSize}"
+"command.gamesign.failure.invalid_size": "${prefix} <red>Diese Team Größe ist nicht unterstützt!</red>"
+"command.gamesign.success": "${prefix} <green>Schild wurde erfolgreich erstellt!</green> Platziere es!"
+"handler.gamesign.failure.already": "${prefix} <red>Du bist bereits in einem Spiel!</red>"
+"handler.gamesign.success": "${prefix} <green>Schild plaziert!</green>"
+"handler.gamesign.join.success": "<green>Verbinde mit</green> $0"
+
+"spectator.prefix": "Zuschauer | "
+"spectator.item.compass.name": "Teleporter ${right-click}"
+"spectator.item.next-game.name": "Nächstes Spiel ${right-click}"
+"spectator.compass.title": "<b><red>Teleportiere zu einem Spieler</red></b>"
+"spectator.compass.item.lore.l1": "<gray>Team:</gray>"
+"spectator.compass.item.lore.l2": "<white>$0</white>"
+"spectator.compass.item.name": "<b>$0</b>"
+
+"interface.private-game.title": "<red>Privates Spiel erstellen</red>"
+"interface.private-game.item.name": "$0"
+"interface.private-game.item.lore.l1": "<white>Team Anzahl:</white>"
+"interface.private-game.item.lore.l2": "<gray>$0</gray>"
+"interface.private-game.item.lore.l3": "<white>Team Größe:</white>"
+"interface.private-game.item.lore.l4": "<gray>$0</gray>"
+"interface.private-game.success": "${prefix} <green>Privates Spiel der Größe</green> '$0'<green> wurde erfolgreich erstellt!</green><br>${prefix} <gray>Du kannst <click:suggest_command:'/privategame invite '>'/privategame invite <spieler>'</click> verwenden, um jemanden einzuladen!</gray>"
