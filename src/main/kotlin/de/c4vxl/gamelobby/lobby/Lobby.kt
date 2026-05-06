@@ -9,14 +9,11 @@ import de.c4vxl.gamemanager.gma.player.GMAPlayer.Companion.gma
 import de.c4vxl.gamemanager.language.Language.Companion.language
 import de.c4vxl.gamemanager.plugin.enums.Permission
 import de.c4vxl.gamemanager.utils.ItemBuilder
-import net.kyori.adventure.text.Component
 import org.bukkit.*
-import org.bukkit.configuration.file.YamlConfiguration
 import org.bukkit.entity.Player
-import org.bukkit.event.player.PlayerChangedWorldEvent
-import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.scoreboard.Team
-import java.io.File
+import java.util.*
+import java.util.concurrent.ConcurrentHashMap
 
 /**
  * Main interface for lobby actions
@@ -47,6 +44,7 @@ object Lobby {
                 it.setOption(Team.Option.COLLISION_RULE, Team.OptionStatus.NEVER)
             }
 
+    private val playerVisibilityCache = ConcurrentHashMap<UUID, Boolean>()
 
     /**
      * Returns the player preference for showing other players
@@ -54,18 +52,12 @@ object Lobby {
      * @param newValue If set, new value will be saved
      */
     fun showPlayers(player: Player, newValue: Boolean? = null): Boolean {
-        // Get config
-        val configFile = File(Main.config.getString("config.lobby.visibility-db") ?: "player-visibility.yml")
-        val config = YamlConfiguration.loadConfiguration(configFile)
-
-        // Update value
         newValue?.let {
-            config.set(player.uniqueId.toString(), it)
-            config.save(configFile)
+            playerVisibilityCache[player.uniqueId] = it
+            return it
         }
 
-        // Return config value
-        return config.getBoolean(player.uniqueId.toString(), true)
+        return playerVisibilityCache.computeIfAbsent(player.uniqueId) { true }
     }
 
     /**
@@ -90,10 +82,6 @@ object Lobby {
 
         // Give items
         equipItems(player)
-
-        // Fake world change event
-        // other plugins depend on this to toggle their functionality
-        PlayerChangedWorldEvent(player, player.world).callEvent()
 
         // Disable collision
         // Try to use the team the player is already in
