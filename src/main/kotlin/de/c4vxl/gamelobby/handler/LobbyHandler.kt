@@ -1,5 +1,6 @@
 package de.c4vxl.gamelobby.handler
 
+import com.destroystokyo.paper.event.player.PlayerAdvancementCriterionGrantEvent
 import de.c4vxl.gamelobby.Main
 import de.c4vxl.gamelobby.lobby.Lobby
 import de.c4vxl.gamelobby.lobby.Lobby.isInLobby
@@ -46,6 +47,13 @@ class LobbyHandler : Listener {
 
         if (!player.isInLobby) return
         if ((event.damager as? Player)?.gameMode == GameMode.CREATIVE) return
+
+        event.isCancelled = true
+    }
+
+    @EventHandler
+    fun onAdvancement(event: PlayerAdvancementCriterionGrantEvent) {
+        if (!event.player.isInLobby) return
 
         event.isCancelled = true
     }

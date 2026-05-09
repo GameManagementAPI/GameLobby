@@ -29,6 +29,7 @@ object Lobby {
             this.world.setGameRule(GameRules.ADVANCE_WEATHER, false)
             this.world.setGameRule(GameRules.IMMEDIATE_RESPAWN, true)
             this.world.setGameRule(GameRules.FALL_DAMAGE, false)
+            this.world.setGameRule(GameRules.SHOW_ADVANCEMENT_MESSAGES, false)
         }
         set(value) {
             Main.config.set("game.spawn", value)
